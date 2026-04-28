@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  
+  </head>
+  <style>
+        .small.custom {
+            background-color: #faebd7a3;
+            border-radius: 5px;
+            padding: 4px;
+            margin-left: 24px;
+        }
+    </style>
+  <body>
+    <div class="container">
+        <h1>Welcome to the Events App</h1>
+        <p>This is the edit page.</p>
+      
+      <form action="/events/update/{{$event->id}}" method="post">
+        @csrf
+        
+            <input type="text" name="name" value="{{$event->name}}" placeholder="Event name" class="form-control mb-2">
+            <input type="text" name="description" value="{{$event->description}}" placeholder="Event description" class="form-control mb-2">
+            <input type="date" name="start_date" value="{{$event->start_date}}" class="form-control mb-2">
+            <input type="date" name="end_date" value="{{$event->end_date}}" class="form-control mb-2">
+            Add categories:
+            @foreach($categories as $category)
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="categories[]" value="{{ $category->id }}" {{ $event->categories->contains($category->id) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="category{{ $category->id }}">
+                        {{ $category->name }}
+                    </label>
+                </div>
+                
+            @endforeach
+          
+            <button type="submit" class="btn btn-primary mt-2">Update event</button>
+    </form>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  </body>
+</html>
